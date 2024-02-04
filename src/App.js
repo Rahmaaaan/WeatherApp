@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { ImSpinner8 } from 'react-icons/im';
 import Header from './components/Header';
 import Footer from './components/Footer';
+import Spinner from './components/Spinner';
 import Form from './components/Form';
 import WeatherCard from './components/WeatherCard';
 import './index.css';
@@ -48,28 +48,18 @@ const App = () => {
     return () => clearTimeout(timer);
   }, [errorMsg]);
 
-  if (!data) {
-    return (
-      <div>
-        <div className="w-full h-screen flex flex-col justify-center items-center bg-gradientBg bg-no-repeat bg-cover bg-center">
-          <ImSpinner8 className="text-white text-5xl animate-spin" />
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div className="w-full h-screen bg-gradientBg bg-no-repeat bg-cover bg-center flex flex-col items-center justify-center px-4 lg:px-0">
-      <Header />
-      {errorMsg && (
-        <div className="w-full max-w-[90vw] lg:max-w-[450px] bg-[#ff208c] text-white absolute top-2 lg:top-10 p-4 capitalize rounded-md">
-          {`${errorMsg.response.data.message}`}
-        </div>
-      )}
-      <Form onWeatherSubmit={weatherSubmitHandler} animate={setAnimate} />
-      <WeatherCard data={data} loading={loading} />
-      <Footer />
-    </div>
+    <Header />
+    {errorMsg && (
+      <div className="w-full max-w-[90vw] lg:max-w-[450px] bg-[#ff208c] text-white absolute top-2 lg:top-10 p-4 capitalize rounded-md">
+        {`${errorMsg.response.data.message}`}
+      </div>
+    )}
+    <Form onWeatherSubmit={weatherSubmitHandler} animate={setAnimate} />
+    {loading ? <Spinner /> : <WeatherCard data={data} />}
+    <Footer />
+  </div>
   );
 };
 
