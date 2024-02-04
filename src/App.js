@@ -24,6 +24,9 @@ import {
 
 import { TbTemperatureCelsius } from 'react-icons/tb';
 import { ImSpinner8 } from 'react-icons/im';
+import Header from './components/Header';
+import Footer from './components/Footer';
+import './index.css';
 
 // API key
 const APIkey = process.env.REACT_APP_WEATHER_API_KEY;
@@ -152,7 +155,7 @@ const App = () => {
       className="w-full h-screen bg-gradientBg bg-no-repeat bg-cover 
     bg-center flex flex-col items-center justify-center px-4 lg:px-0"
     >
-      <section className="pb-5 text-5xl font-bold text-white text-center mb-5">Weather App</section>
+      <Header />
       {errorMsg && (
         <div
           className="w-full max-w-[90vw] lg:max-w-[450px] bg-[#ff208c]
@@ -280,14 +283,7 @@ const App = () => {
           </div>
         )}
       </div>
-      <section className="p-7 text-white font-thin text-center">
-        <p>
-          <a href="https://portfolio-nine-silk-97.vercel.app/">
-            © <b>Weather App</b>
-          </a>
-          . All rights reserved
-        </p>
-      </section>
+      <Footer />
     </div>
   );
 };
