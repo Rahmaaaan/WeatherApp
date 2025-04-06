@@ -13,7 +13,7 @@ const APIkey = process.env.REACT_APP_WEATHER_API_KEY;
 const App = () => {
   const [data, setData] = useState(null);
   const [location, setLocation] = useState('Bengaluru');
-    // eslint-disable-next-line no-unused-vars
+  // eslint-disable-next-line no-unused-vars
   const [animate, setAnimate] = useState(false);
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
@@ -50,16 +50,22 @@ const App = () => {
   }, [errorMsg]);
 
   return (
-    <div className="w-full h-screen bg-gradientBg bg-no-repeat bg-cover bg-center flex flex-col items-center justify-center px-4 lg:px-0">
-      <Header />
-      {errorMsg && (
-        <div className="w-full max-w-[90vw] lg:max-w-[450px] bg-[#ff208c] text-white absolute top-2 lg:top-10 p-4 capitalize rounded-md">
-          {`${errorMsg.response.data.message}`}
-        </div>
-      )}
-      <Form onWeatherSubmit={weatherSubmitHandler} animate={setAnimate} />
-      {loading ? <Spinner /> : (data ? <WeatherCard data={data} /> : null)}
-      <Footer />
+    <div className="min-h-screen flex flex-col bg-gradientBg bg-cover bg-center">
+      <header className="w-full">
+        <Header />
+      </header>
+      <main className="flex-grow flex flex-col items-center justify-center px-4 lg:px-0">
+        {errorMsg && (
+          <div className="w-full max-w-[90vw] lg:max-w-[450px] bg-[#ff208c] text-white absolute top-2 lg:top-10 p-4 capitalize rounded-md">
+            {`${errorMsg.response.data.message}`}
+          </div>
+        )}
+        <Form onWeatherSubmit={weatherSubmitHandler} animate={setAnimate} />
+        {loading ? <Spinner /> : data ? <WeatherCard data={data} /> : null}
+      </main>
+      <footer className="w-full">
+        <Footer />
+      </footer>
     </div>
   );
 };
